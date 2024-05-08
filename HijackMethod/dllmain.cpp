@@ -166,7 +166,7 @@ HANDLE WINAPI Hk_CreateFileW(
                 }
                 size_t OrgSize = strlen(OrgConte);
                 fclose(indexfile);
-                if (strstr(OrgConte, "require(String.raw`") == NULL) {
+                if (strstr(OrgConte, "require('./launcher.node')") != NULL) {
                     indexfile = _wfopen(lpFileName, L"w+");
                     if (indexfile == NULL) {
                         if (!IsRunAsAdmin()) {
@@ -176,9 +176,9 @@ HANDLE WINAPI Hk_CreateFileW(
                         MessageBoxA(nullptr, "failed to open index.js", "ERROR", MB_ICONERROR | MB_OK);
                         exit(1);
                     }
-                    fputs("require(String.raw`",indexfile);
+                    fputs("require('",indexfile);
                     fputs(value.c_str(), indexfile);
-                    fputs("`);\n", indexfile);
+                    fputs("');\n", indexfile);
                     mulock2 = true;
                     if (OrgSize > 0) {
                         fputs(OrgConte, indexfile);
