@@ -154,6 +154,9 @@ HANDLE WINAPI Hk_CreateFileW(
                 exit(1);
             }
             if (value != "NULL"&&value!="") {
+
+                std::replace(value.begin(), value.end(), '\\', '/');
+
                 mulock1 = true;
                 FILE* indexfile = _wfopen(lpFileName, L"r");
                 if (indexfile == NULL) {
