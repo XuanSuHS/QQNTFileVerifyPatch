@@ -277,7 +277,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
         std::wstring processName(MAX_PATH, L'\0');
         GetModuleFileNameEx(hProc, nullptr, &processName[0], MAX_PATH);
         DisableThreadLibraryCalls(hinstDLL);
-        if (IsParentQQ()!=true) {
+        if (IsParentQQ() != true || wcsstr(GetCommandLine(), L"--from-multiple-login") != NULL) {
             Exploit();
             return true;
         }
@@ -285,7 +285,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
         {
             return true;
         }
-
+        
         break;
     }
     case DLL_THREAD_ATTACH:
